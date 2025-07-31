@@ -4,6 +4,8 @@
   }
   window.coinflipJuegoInicializado = true;
 
+  const API_BASE = 'https://backend-sqcoins-production.up.railway.app';
+
   let idSala, usuarioID;
 
   function mostrarControlAjuste(sala) {
@@ -27,10 +29,11 @@
 
   window.cancelarPartida = async () => {
     try {
-      await fetch('/coinflip/cancelar', {
+      await fetch(`${API_BASE}/coinflip/cancelar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idSala, idUsuario: usuarioID })
+        body: JSON.stringify({ idSala, idUsuario: usuarioID }),
+        credentials: 'include'
       });
     } catch (err) {
       console.error('Error al cancelar:', err);
@@ -71,10 +74,11 @@
         return alert('El monto mínimo es 1');
       }
       try {
-        const res = await fetch('/coinflip/actualizar', {
+        const res = await fetch(`${API_BASE}/coinflip/actualizar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idSala, idUsuario: usuarioID, nuevoMonto: valor })
+          body: JSON.stringify({ idSala, idUsuario: usuarioID, nuevoMonto: valor }),
+          credentials: 'include'
         });
         const data = await res.json();
         if (!res.ok || data.status !== 'ok') {
@@ -104,7 +108,9 @@
 
     async function cargarSala() {
       try {
-        const res = await fetch(`/coinflip/sala/${idSala}`);
+        const res = await fetch(`${API_BASE}/coinflip/sala/${idSala}`, {
+          credentials: 'include'
+        });
         if (!res.ok) throw new Error('Sala no encontrada');
         const datosSala = await res.json();
         const sala = datosSala;
@@ -154,10 +160,11 @@
 
     async function unirseASala() {
       try {
-        const res = await fetch('/coinflip/unirse', {
+        const res = await fetch(`${API_BASE}/coinflip/unirse`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id_usuario: usuarioID, id_sala_juego1: idSala })
+          body: JSON.stringify({ id_usuario: usuarioID, id_sala_juego1: idSala }),
+          credentials: 'include'
         });
         const data = await res.json();
         if (data.status === 'ok' || data.status === 'resuelto') {

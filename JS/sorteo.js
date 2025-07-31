@@ -1,6 +1,6 @@
-// frontend/JS/sorteo.js
-
 (function () {
+  const API_BASE = 'https://backend-sqcoins-production.up.railway.app';
+
   const contenedor = document.getElementById('contenedor-sorteos');
   if (!contenedor) return;
 
@@ -17,7 +17,7 @@
 
   async function listarSorteos() {
     try {
-      const res = await fetch('/api/sorteos/activos');
+      const res = await fetch(`${API_BASE}/api/sorteos/activos`);
       if (!res.ok) throw new Error('Error al listar sorteos');
       const sorteos = await res.json();
       const cont = document.getElementById('sorteos');
@@ -65,7 +65,7 @@
       return;
     }
     try {
-      const res = await fetch('/api/sorteos/crear', {
+      const res = await fetch(`${API_BASE}/api/sorteos/crear`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cantidad_sorteo: cantidad, limite_participantes: limite, id_creador: id_usuario })
@@ -87,7 +87,7 @@
     if (!nuevaCantidad) return alert("Ingresá una cantidad válida");
 
     try {
-      const res = await fetch('/api/sorteos/actualizar', {
+      const res = await fetch(`${API_BASE}/api/sorteos/actualizar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_sorteo: idSorteo, nuevaCantidad, id_usuario })
@@ -105,7 +105,7 @@
   async function unirseSorteo(idSorteo) {
     const id_usuario = getUsuarioID();
     try {
-      const res = await fetch('/api/sorteos/unirse', {
+      const res = await fetch(`${API_BASE}/api/sorteos/unirse`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_usuario, id_sorteo: idSorteo })
@@ -126,7 +126,7 @@
 
     const id_usuario = getUsuarioID();
     try {
-      const res = await fetch('/api/sorteos/eliminar', {
+      const res = await fetch(`${API_BASE}/api/sorteos/eliminar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_sorteo: idSorteo, id_usuario })
@@ -150,7 +150,7 @@
     return parseInt(id, 10);
   }
 
-  // Exponer para el HTML
+  // Exponer funciones al HTML
   window.unirseSorteo = unirseSorteo;
   window.actualizarCantidad = actualizarCantidad;
   window.eliminarSorteo = eliminarSorteo;

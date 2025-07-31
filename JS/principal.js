@@ -1,8 +1,8 @@
-// frontend/principal.js
+const API_BASE = 'https://backend-sqcoins-production.up.railway.app';
 
 async function cargarRankings() {
   try {
-    const res = await fetch('/api/rankings');
+    const res = await fetch(`${API_BASE}/api/rankings`);
     if (!res.ok) throw new Error('Error al obtener rankings');
     const data = await res.json();
 

@@ -52,8 +52,11 @@ function iniciarBuscaminas() {
       return Promise.resolve(false);
     }
 
+    // URL del backend en producción
+    const backendUrl = 'https://backend-sqcoins-production.up.railway.app'; // Cambiar por tu URL real del backend
+
     // Petición al backend para validar y registrar inicio de juego
-    return fetch('/api/buscaminas/iniciar', {
+    return fetch(`${backendUrl}/api/buscaminas/iniciar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -111,8 +114,11 @@ function iniciarBuscaminas() {
       // Leer usuarioID para enviar al backend
       const usuarioID = localStorage.getItem('usuarioID');
 
+      // URL del backend en producción
+      const backendUrl = 'https://backend-sqcoins-production.up.railway.app'; // Cambiar por tu URL real del backend
+
       // Notificar pérdida al backend
-      fetch('/api/buscaminas/finalizar', {
+      fetch(`${backendUrl}/api/buscaminas/finalizar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -164,14 +170,16 @@ function iniciarBuscaminas() {
         const gananciaNeta = coinsBet * bonusPerSafe * safeClicks;        
         messageDiv.textContent = `🎉 ¡Ganaste! Ganaste ${gananciaNeta.toFixed(2)} monedas.`;
 
-
         revealAllBombs();
 
         // Leer usuarioID para enviar al backend
         const usuarioID = localStorage.getItem('usuarioID');
 
+        // URL del backend en producción
+        const backendUrl = 'https://backend-sqcoins-production.up.railway.app'; // Cambiar por tu URL real del backend
+
         // Notificar ganancia al backend
-        fetch('/api/buscaminas/finalizar', {
+        fetch(`${backendUrl}/api/buscaminas/finalizar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

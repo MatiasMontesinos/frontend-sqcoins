@@ -1,4 +1,4 @@
-// frontend/JS/perfil.js
+const API_BASE = 'https://backend-sqcoins-production.up.railway.app';
 
 // Arranca el flujo inmediatamente (importante para SPA)
 inicializarPerfil();
@@ -18,7 +18,7 @@ async function inicializarPerfil() {
     const errorEdad = document.getElementById('errorEdad');
     formRegistro.addEventListener('submit', async e => {
       e.preventDefault();
-      // Validar edad
+
       const fn = new Date(formRegistro.fechaNacimiento.value);
       const hoy = new Date();
       let edad = hoy.getFullYear() - fn.getFullYear();
@@ -37,7 +37,7 @@ async function inicializarPerfil() {
         password: formRegistro.passwordRegistro.value
       };
       try {
-        const res = await fetch('/api/registro', {
+        const res = await fetch(`${API_BASE}/api/registro`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(datos),
@@ -66,7 +66,7 @@ async function inicializarPerfil() {
         password: formLogin.passwordLogin.value
       };
       try {
-        const res = await fetch('/api/login', {
+        const res = await fetch(`${API_BASE}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(datos),
@@ -90,8 +90,7 @@ async function inicializarPerfil() {
   // Logout
   if (btnLogout) {
     btnLogout.addEventListener('click', async () => {
-      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
-      // Limpio localStorage y UI
+      await fetch(`${API_BASE}/api/logout`, { method: 'POST', credentials: 'include' });
       localStorage.removeItem('usuarioID');
       alert('Sesión cerrada correctamente');
       mostrarFormulario();
@@ -102,7 +101,7 @@ async function inicializarPerfil() {
   if (btnEliminar) {
     btnEliminar.addEventListener('click', async () => {
       if (!confirm('¿Seguro que querés eliminar la cuenta?')) return;
-      const res = await fetch('/api/eliminar-cuenta', {
+      const res = await fetch(`${API_BASE}/api/eliminar-cuenta`, {
         method: 'POST',
         credentials: 'include'
       });
@@ -123,12 +122,11 @@ async function inicializarPerfil() {
 
 async function verificarSesion() {
   try {
-    const res = await fetch('/api/sesion-activa', { credentials: 'include' });
+    const res = await fetch(`${API_BASE}/api/sesion-activa`, { credentials: 'include' });
     if (res.ok) {
       const { usuario } = await res.json();
       mostrarUsuario(usuario);
     } else {
-      // 401 u otros: limpiamos cualquier ID viejO
       localStorage.removeItem('usuarioID');
       mostrarFormulario();
     }
@@ -139,10 +137,8 @@ async function verificarSesion() {
 }
 
 function mostrarUsuario(usuario) {
-  // Guardamos en localStorage
   if (usuario.id) localStorage.setItem('usuarioID', usuario.id);
 
-  // Actualizamos UI
   const perfilContainer            = document.querySelector('.perfil-container');
   const contenidoPostLogin         = document.getElementById('contenidoPostLogin');
   const nombreUsuarioSpan          = document.getElementById('nombreUsuario');
@@ -194,7 +190,7 @@ function inicializarEventosPerfil() {
       alert('El username no puede quedar vacío');
       return;
     }
-    fetch('/api/actualizar-username', {
+    fetch(`${API_BASE}/api/actualizar-username`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nuevoUsername: nuevo }),
