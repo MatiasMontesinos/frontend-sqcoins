@@ -1,0 +1,117 @@
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #1a1f3c, #2d325a);
+  color: #ccd6f6;
+  padding: 26px 40px;
+  box-shadow: 0 4px 20px rgba(60, 80, 180, 0.4); 
+  box-sizing: border-box;
+  z-index: 9999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu-central {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  display: flex;
+  gap: 36px;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.menu-central li a {
+  color: #ccd6f6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background-color: transparent;
+  position: relative;
+}
+
+.menu-central li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: #4dabf7; 
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
+}
+
+.menu-central li a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.menu-central li a:hover {
+  color: #e6f0ff;
+  text-shadow: 0 0 6px #4dabf7;
+}
+
+.perfil {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.perfil a {
+  color: #ccd6f6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.perfil a:hover {
+  color: #e6f0ff;
+  text-shadow: 0 0 6px #4dabf7;
+}
+
+.perfil a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: #4dabf7;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.perfil a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+@media (max-width: 500px) {
+  .menu-central {
+    gap: 20px;
+    overflow-x: auto;
+  }
+
+  .menu-central li a,
+  .perfil a {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+}

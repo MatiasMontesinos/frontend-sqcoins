@@ -1,0 +1,70 @@
+<!-- Formulario de Registro -->
+<div class="perfil-container">  
+  <div class="formulario-registro">
+    <h2>Registro</h2>
+    <form id="formRegistro">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required />
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="fechaNacimiento">Fecha de nacimiento:</label>
+      <input type="date" id="fechaNacimiento" name="fechaNacimiento" required />
+      <div id="errorEdad" style="color: red; display: none; font-size: 0.9em;">
+        Debes tener al menos 18 años para registrarte.
+      </div>
+
+      <label for="passwordRegistro">Contraseña:</label>
+      <input type="password" id="passwordRegistro" name="passwordRegistro" required />
+
+      <button type="submit" id="btnRegistrar">Registrar</button>
+    </form>
+  </div>
+
+  <!-- Formulario de Login -->
+  <div class="formulario-login" style="margin-top: 40px;">
+    <h2>Iniciar sesión</h2>
+    <form id="formLogin">
+      <label for="usernameLogin">Username:</label> 
+      <input type="text" id="usernameLogin" name="usernameLogin" required />
+
+      <label for="passwordLogin">Contraseña:</label>
+      <input type="password" id="passwordLogin" name="passwordLogin" required />
+
+      <button type="submit" id="btnLogin">Ingresar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Info de usuario después del log in -->
+<div id="contenidoPostLogin" style="display: none; margin-top: 100px; position: relative; max-width: 350px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 12px rgba(0,0,0,0.15); font-family: Arial, sans-serif;">
+  <h2 style="text-align:center; margin-bottom: 20px;">¡Bienvenido, <span id="nombreUsuario"></span>!</h2>
+
+  <div class="info-row">
+    Username: <span id="usernameUsuario"></span>
+  </div>
+  <div class="info-row">
+    Fecha de nacimiento: <span id="fechaNacimientoUsuario"></span>
+  </div>
+  <div class="info-row">
+    Monedas totales: <span id="monedasUsuario"></span>
+  </div>
+
+
+  <!-- Botón Editar -->
+  <div style="text-align: right; margin-top: 20px;">
+    <button id="btnEditar" class="boton-editar">Editar Username</button>
+    <button id="btnLogout" class="boton-editar">Cerrar sesión</button>
+    <button id="btnEliminarCuenta" class="boton-eliminar">Eliminar cuenta</button>
+  </div>
+
+
+  <!-- Formulario de edición oculto inicialmente -->
+  <div id="formEditar" style="display: none; margin-top: 20px;">
+  <input type="text" id="nuevoUsername" placeholder="Nuevo username" />
+  <div class="botones-edicion">
+    <button id="btnConfirmar" class="boton-editar" type="button">Confirmar</button>
+    <button id="btnCancelar" class="boton-cancelar" type="button">Cancelar</button>
+  </div>
+</div>
